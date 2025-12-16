@@ -1,0 +1,96 @@
+{
+  "normal_adult": {
+    "profile_id": "normal_adult",
+    "age_group": "adult",
+    "respiratory_issues": false,
+    "cardiovascular_issues": false,
+    "allergies": false,
+    "pregnancy": false,
+    "activity_level": "moderate",
+    "outdoor_exposure": "moderate",
+    "sensitivity_level": "normal"
+  },
+  "child_with_asthma": {
+    "profile_id": "child_with_asthma",
+    "age_group": "child",
+    "respiratory_issues": true,
+    "cardiovascular_issues": false,
+    "allergies": true,
+    "pregnancy": false,
+    "activity_level": "active",
+    "outdoor_exposure": "high",
+    "sensitivity_level": "highly_sensitive"
+  },
+  "senior_with_heart_condition": {
+    "profile_id": "senior_with_heart_condition",
+    "age_group": "senior",
+    "respiratory_issues": false,
+    "cardiovascular_issues": true,
+    "allergies": false,
+    "pregnancy": false,
+    "activity_level": "sedentary",
+    "outdoor_exposure": "minimal",
+    "sensitivity_level": "sensitive"
+  },
+  "pregnant_woman": {
+    "profile_id": "pregnant_woman",
+    "age_group": "adult",
+    "respiratory_issues": false,
+    "cardiovascular_issues": false,
+    "allergies": false,
+    "pregnancy": true,
+    "activity_level": "moderate",
+    "outdoor_exposure": "moderate",
+    "sensitivity_level": "sensitive"
+  },
+  "athlete": {
+    "profile_id": "athlete",
+    "age_group": "adult",
+    "respiratory_issues": false,
+    "cardiovascular_issues": false,
+    "allergies": false,
+    "pregnancy": false,
+    "activity_level": "active",
+    "outdoor_exposure": "high",
+    "sensitivity_level": "normal"
+  },
+  "office_worker": {
+    "profile_id": "office_worker",
+    "age_group": "adult",
+    "respiratory_issues": false,
+    "cardiovascular_issues": false,
+    "allergies": false,
+    "pregnancy": false,
+    "activity_level": "sedentary",
+    "outdoor_exposure": "minimal",
+    "sensitivity_level": "normal"
+  },
+  "sathwik": {
+    "profile_id": "sathwik",
+    "age_group": "adult",
+    "gender": "not_specified",
+    "respiratory_issues": true,
+    "cardiovascular_issues": true,
+    "allergies": true,
+    "pregnancy": false,
+    "activity_level": "active",
+    "outdoor_exposure": "moderate",
+    "sensitivity_level": "normal",
+    "created_at": "2025-12-04T16:27:11.258965",
+    "updated_at": "2025-12-04T16:27:11.258977"
+  },
+  "sravya": {
+    "profile_id": "sravya",
+    "age_group": "adult",
+    "gender": "not_specified",
+    "respiratory_issues": true,
+    "cardiovascular_issues": false,
+    "allergies": true,
+    "pregnancy": false,
+    "activity_level": "moderate",
+    "outdoor_exposure": "moderate",
+    "sensitivity_level": "normal",
+    "created_at": "2025-12-04T16:33:04.858771",
+    "updated_at": "2025-12-04T16:33:04.858783"
+  }
+}
