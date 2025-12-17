@@ -414,12 +414,14 @@ We trained 4 different machine learning models on the same dataset. Below is a d
 
 ### Overall Model Rankings
 
-| Model | 🥇 1st Place | 🥈 2nd Place | 🥉 3rd Place | 4th Place | **Overall Score** |
-|-------|-------------|-------------|-------------|-----------|-------------------|
-| **Linear Regression** | 3 | 3 | 0 | 1 | ⭐⭐⭐⭐⭐ Excellent |
-| **Ridge Regression** | 3 | 3 | 0 | 1 | ⭐⭐⭐⭐⭐ Excellent |
-| **XGBoost** | 2 | 1 | 2 | 2 | ⭐⭐⭐⭐ Very Good |
-| **Gradient Boosting** | 0 | 0 | 1 | 6 | ⭐⭐⭐ Good |
+| Model | Avg Test RMSE | Avg Test MAE | Avg Test R² | Overall Accuracy | Performance |
+|-------|---------------|--------------|-------------|------------------|-------------|
+| **Linear Regression** | 11.06 | 8.84 | 0.56 | 81.4% | ⭐⭐⭐⭐⭐ Excellent |
+| **Ridge Regression** | 11.05 | 8.84 | 0.56 | 81.5% | ⭐⭐⭐⭐⭐ Excellent |
+| **XGBoost** | 14.19 | 12.73 | 0.47 | 75.3% | ⭐⭐⭐⭐ Very Good |
+| **Gradient Boosting** | 17.55 | 13.57 | 0.28 | 71.8% | ⭐⭐⭐ Good |
+
+*Note: Averages calculated across all 7 pollutants (excluding negative R² values for CO2)*
 
 ### Key Insights
 
