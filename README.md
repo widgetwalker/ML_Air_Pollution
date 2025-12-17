@@ -290,26 +290,6 @@ Our XGBoost models are trained on real sensor data and achieve high accuracy acr
 | **Humidity** | XGBoost Regressor | 160.72 KB | 2.50 KB | 163.22 KB | ~8,000 | 25+ features |
 | **Pressure** | XGBoost Regressor | 198.19 KB | 2.50 KB | 200.69 KB | ~8,000 | 25+ features |
 
-**Total Model Storage**: ~1.1 MB for all 7 models + scalers
-
-### Performance Metrics
-
-| Pollutant | Test RMSE | Test MAE | Test R² | CV RMSE | Accuracy Rating |
-|-----------|-----------|----------|---------|---------|-----------------|
-| **PM2.5** | 3.73 | 2.56 | 0.969 | 5.35 | ⭐⭐⭐⭐⭐ Excellent |
-| **PM10** | 4.55 | 2.90 | 0.956 | 6.46 | ⭐⭐⭐⭐⭐ Excellent |
-| **CO2** | 27.67 | 23.52 | -1.63* | 22.87 | ⭐⭐⭐ Good |
-| **TVOC** | 55.49 | 52.92 | 0.086 | 46.19 | ⭐⭐⭐ Good |
-| **Temperature** | 2.18 | 1.70 | 0.682 | 1.50 | ⭐⭐⭐⭐ Very Good |
-| **Humidity** | 6.59 | 4.49 | 0.629 | 6.72 | ⭐⭐⭐⭐ Very Good |
-| **Pressure** | 0.35 | 0.20 | 0.968 | 0.32 | ⭐⭐⭐⭐⭐ Excellent |
-
-**Metrics Explanation:**
-- **RMSE** (Root Mean Square Error): Lower is better - measures prediction error
-- **MAE** (Mean Absolute Error): Lower is better - average absolute difference
-- **R²** (R-squared): Higher is better (0-1 range) - proportion of variance explained
-- **CV RMSE**: Cross-validation RMSE - measures model stability
-
 *Note: Negative R² for CO2 indicates the model performs worse than a simple mean baseline on test data, suggesting high variability in CO2 readings. The model still provides useful predictions but with lower confidence.*
 
 ### Model Features
