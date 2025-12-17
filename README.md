@@ -343,6 +343,31 @@ XGBRegressor(
 - **Time Series Split**: 80/20 chronological train-test split
 - **Cross-Validation**: 5-fold time series cross-validation
 
+### Model Comparison: XGBoost vs Linear Regression
+
+We trained both XGBoost and Linear Regression models on the same dataset for comparison:
+
+| Pollutant | **XGBoost Test R²** | **XGBoost Accuracy** | **Linear Reg Test R²** | **Linear Reg Accuracy** | **Winner** |
+|-----------|---------------------|----------------------|------------------------|-------------------------|------------|
+| **PM2.5** | 0.969 | 96.9% | 0.965 | 96.5% | 🏆 XGBoost |
+| **PM10** | 0.956 | 95.6% | 0.966 | 96.6% | 🏆 Linear Reg |
+| **CO2** | -1.63* | N/A | -1.72* | N/A | 🏆 XGBoost |
+| **TVOC** | 0.086 | 8.6% | 0.684 | 68.4% | 🏆 Linear Reg |
+| **Temperature** | 0.682 | 68.2% | 0.671 | 67.1% | 🏆 XGBoost |
+| **Humidity** | 0.629 | 62.9% | 0.721 | 72.1% | 🏆 Linear Reg |
+| **Pressure** | 0.968 | 96.8% | 0.996 | 99.6% | 🏆 Linear Reg |
+
+**Key Findings:**
+- **Linear Regression** performs better on: PM10, TVOC, Humidity, Pressure (4/7 targets)
+- **XGBoost** performs better on: PM2.5, CO2, Temperature (3/7 targets)
+- **Pressure** predictions are excellent with both models (>96%)
+- **TVOC** shows significant improvement with Linear Regression (68.4% vs 8.6%)
+- **CO2** remains challenging for both models (negative R²)
+
+**Training Files:**
+- XGBoost: `train_multi_target_model.py` → saves to `models/` directory
+- Linear Regression: `train_linear_regression.py` → saves to `models_lr/` directory
+
 ## 🛠️ Troubleshooting
 
 <details>
