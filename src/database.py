@@ -35,9 +35,6 @@ class Database:
                 primary_pollutant TEXT,
                 created_at TEXT DEFAULT CURRENT_TIMESTAMP
             )
-        """)
-        
-        cursor.execute("""
             CREATE TABLE IF NOT EXISTS advice_cache (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 conditions_hash TEXT UNIQUE NOT NULL,
@@ -46,9 +43,6 @@ class Database:
                 created_at TEXT DEFAULT CURRENT_TIMESTAMP,
                 last_accessed TEXT DEFAULT CURRENT_TIMESTAMP
             )
-        """)
-        
-        cursor.execute("""
             CREATE TABLE IF NOT EXISTS conversation_history (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id TEXT,
@@ -58,77 +52,19 @@ class Database:
                 context_data TEXT,
                 created_at TEXT DEFAULT CURRENT_TIMESTAMP
             )
-        """)
-        self.conn.commit()
-    
-    def save_prediction(self, prediction_data: Dict):
-        cursor = self.conn.cursor()
-        current = prediction_data.get('current', {})
-        overall_aqi = prediction_data.get('overall_aqi', {})
-        
-        cursor.execute("""
             INSERT INTO predictions (
                 timestamp, pm25, pm10, co2, tvoc, temperature, humidity, pressure,
                 aqi_category, primary_pollutant
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """, (
-            prediction_data.get('timestamp'),
-            current.get('pm25'),
-            current.get('pm10'),
-            current.get('co2'),
-            current.get('tvoc'),
-            current.get('temperature'),
-            current.get('humidity'),
-            current.get('pressure'),
-            overall_aqi.get('category'),
-            overall_aqi.get('primary_pollutant')
-        ))
-        self.conn.commit()
-    
-    def get_recent_predictions(self, limit: int = 10) -> List[Dict]:
-        cursor = self.conn.cursor()
-        cursor.execute("""
             SELECT * FROM predictions
             ORDER BY created_at DESC
             LIMIT ?
-        """, (limit,))
-        return [dict(row) for row in cursor.fetchall()]
-    
-    def save_conversation(self, user_id: str, user_message: str, 
-                         assistant_response: str, context_data: Dict = None):
-        cursor = self.conn.cursor()
-        cursor.execute("""
             INSERT INTO conversation_history (
                 user_id, timestamp, user_message, assistant_response, context_data
             ) VALUES (?, ?, ?, ?, ?)
-        """, (
-            user_id,
-            datetime.now().isoformat(),
-            user_message,
-            assistant_response,
-            json.dumps(context_data) if context_data else None
-        ))
-        self.conn.commit()
-    
-    def get_conversation_history(self, user_id: str, limit: int = 10) -> List[Dict]:
-        cursor = self.conn.cursor()
-        cursor.execute("""
             SELECT * FROM conversation_history
             WHERE user_id = ?
             ORDER BY created_at DESC
             LIMIT ?
-        """, (user_id, limit))
-        return [dict(row) for row in cursor.fetchall()]
-    
-    def cleanup_old_cache(self, days: int = 30):
-        cursor = self.conn.cursor()
-        cutoff_date = (datetime.now() - timedelta(days=days)).isoformat()
-        cursor.execute("""
             DELETE FROM advice_cache
             WHERE created_at < ?
-        """, (cutoff_date,))
-        self.conn.commit()
-    
-    def close(self):
-        if self.conn:
-            self.conn.close()

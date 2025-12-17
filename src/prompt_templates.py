@@ -102,36 +102,3 @@ IMMEDIATE ACTIONS:
 5. **School**: Consider keeping them home if possible, or ensure school is aware
 
 DO NOT allow outdoor play or sports today. Seek medical attention immediately if breathing becomes difficult.
-"""
-
-def get_system_prompt() -> str:
-    return SYSTEM_PROMPT
-
-def get_general_advisory_prompt(context: str) -> str:
-    return GENERAL_ADVISORY_TEMPLATE.format(context=context)
-
-def get_pollutant_focus_prompt(pollutant: str, context: str) -> str:
-    return POLLUTANT_FOCUS_TEMPLATE.format(pollutant=pollutant, context=context)
-
-def get_activity_advice_prompt(activity: str, context: str) -> str:
-    return ACTIVITY_ADVICE_TEMPLATE.format(activity=activity, context=context)
-
-def get_emergency_prompt(context: str) -> str:
-    return EMERGENCY_TEMPLATE.format(context=context)
-
-def get_followup_prompt(previous_context: str, question: str) -> str:
-    return FOLLOWUP_TEMPLATE.format(
-        previous_context=previous_context,
-        question=question
-    )
-
-def select_appropriate_template(enriched_data: Dict) -> str:
-    overall_category = enriched_data.get('overall_aqi', {}).get('category', 'Good')
-    if overall_category in ['Hazardous', 'Very Unhealthy']:
-        return 'emergency'
-    
-    primary_pollutant = enriched_data.get('overall_aqi', {}).get('primary_pollutant')
-    if primary_pollutant and overall_category in ['Unhealthy', 'Unhealthy for Sensitive Groups']:
-        return 'pollutant_focus'
-    
-    return 'general'

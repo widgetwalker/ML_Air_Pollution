@@ -58,8 +58,6 @@ class LLMService:
             elif self.provider == "huggingface":
                 api_key = settings.huggingface_api_key
                 if api_key and api_key != "your_huggingface_api_key_here":
-                    # Using FLAN-T5 which is more reliable on free tier and good for instruction-following
-                    # New Hugging Face endpoint format: model-name.huggingface.co
                     self.client = {
                         'api_key': api_key,
                         'api_url': "https://flan-t5-large.huggingface.co"
@@ -154,12 +152,10 @@ class LLMService:
                     'HARM_CATEGORY_DANGEROUS_CONTENT': 'BLOCK_NONE',
                 }
             )
-            # Check if response has valid content
             if response.candidates and len(response.candidates) > 0:
                 candidate = response.candidates[0]
                 if candidate.content and candidate.content.parts:
                     return candidate.content.parts[0].text
-            # If no valid content, raise an error with finish reason
             finish_reason = response.candidates[0].finish_reason if response.candidates else "UNKNOWN"
             raise Exception(f"Gemini API returned no content. Finish reason: {finish_reason}")
         
@@ -187,25 +183,22 @@ class LLMService:
                 }
             }
             
-            # Retry logic for Hugging Face model loading (410 errors)
             max_retries = 3
-            retry_delay = 2  # seconds
+            retry_delay = 2
             
             for attempt in range(max_retries):
                 try:
                     response = requests.post(self.client['api_url'], headers=headers, json=payload, timeout=30)
                     
-                    # Handle 410 Gone (model loading)
                     if response.status_code == 410:
                         if attempt < max_retries - 1:
-                            wait_time = retry_delay * (2 ** attempt)  # Exponential backoff
+                            wait_time = retry_delay * (2 ** attempt)
                             print(f"⏳ Model is loading... Retrying in {wait_time}s (attempt {attempt + 1}/{max_retries})")
                             time.sleep(wait_time)
                             continue
                         else:
                             raise Exception("Model is still loading. Please try again in a few moments.")
                     
-                    # Handle 503 Service Unavailable
                     if response.status_code == 503:
                         if attempt < max_retries - 1:
                             wait_time = retry_delay * (2 ** attempt)
@@ -219,7 +212,6 @@ class LLMService:
                     
                     result = response.json()
                     
-                    # Handle error responses
                     if isinstance(result, dict) and 'error' in result:
                         error_msg = result.get('error', 'Unknown error')
                         if 'loading' in error_msg.lower():
@@ -230,7 +222,6 @@ class LLMService:
                                 continue
                         raise Exception(f"Hugging Face API error: {error_msg}")
                     
-                    # Extract generated text
                     if isinstance(result, list) and len(result) > 0:
                         return result[0].get('generated_text', '')
                     elif isinstance(result, dict):
