@@ -121,6 +121,7 @@ for idx, (name, res) in enumerate(all_results.items()):
     axes[idx, 1].grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('evaluation_ridge.png', dpi=300, bbox_inches='tight')
-print("\n✓ Saved: evaluation_ridge.png")
+os.makedirs('graphs/model_evaluations', exist_ok=True)
+plt.savefig('graphs/model_evaluations/evaluation_ridge.png', dpi=300, bbox_inches='tight')
+print("\n✓ Saved: graphs/model_evaluations/evaluation_ridge.png")
 print(f"✓ Trained {len(all_results)} Ridge models")
