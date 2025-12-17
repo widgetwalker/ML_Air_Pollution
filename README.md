@@ -327,6 +327,7 @@ Despite being more complex ensemble methods, XGBoost and Gradient Boosting under
 **Total Model Storage**: ~35 KB for all 7 Ridge models + scalers (97% smaller than XGBoost!)
 
 **Training Configuration:**
+
 ```python
 Ridge(
     alpha=1.0,              # L2 regularization strength
@@ -334,6 +335,7 @@ Ridge(
     fit_intercept=True      # Include bias term
 )
 ```
+
 
 **Key Advantages:**
 - ✅ **Smallest Storage**: 35 KB vs 1.1 MB for XGBoost (97% reduction)
